@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a0f17">
+<title>Para ti, tomatín</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,500&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#240c14; --wine:#4a1523; --tomato:#e8452f; --tomato2:#ff7a5c; --blush:#f6c9c0;
+  --leaf:#86a75f; --paper:#fbefe3; --ink:#4a2a2a;
+  --serif:"Fraunces",Georgia,serif; --hand:"Caveat","Segoe Print",cursive;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{
+  background:radial-gradient(ellipse at 50% 30%,#6a2236 0%,var(--wine) 35%,var(--night) 80%);
+  color:var(--blush);font-family:var(--serif);overflow:hidden;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.bit{position:absolute;top:-30px;opacity:0;animation:fall linear forwards;color:var(--tomato2)}
+@keyframes fall{0%{transform:translate3d(0,0,0) rotate(0);opacity:0}10%{opacity:.5}90%{opacity:.4}100%{transform:translate3d(var(--dx),112vh,0) rotate(300deg);opacity:0}}
+
+.scene{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:28px 26px;opacity:0;visibility:hidden;transform:scale(.97);
+  transition:opacity .7s ease,transform .7s ease,visibility .7s}
+.scene.on{opacity:1;visibility:visible;transform:none}
+
+/* tomate corazón */
+.tom{width:var(--s,150px);height:var(--s,150px);display:block;overflow:visible}
+.tom .body{fill:url(#g)}
+.hero{position:relative;border:0;background:none;padding:18px;cursor:pointer;margin-bottom:10px}
+.hero .tom{animation:beat 2.6s ease-in-out infinite;will-change:transform}
+.hero{background:radial-gradient(circle,rgba(232,69,47,.38) 0,transparent 62%);border-radius:50%}
+.hero::before,.hero::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(246,201,192,.25);animation:ring 2.6s ease-out infinite}
+.hero::after{animation-delay:1.3s}
+@keyframes ring{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+@keyframes beat{0%,100%{transform:scale(1)}10%{transform:scale(1.09)}20%{transform:scale(1)}30%{transform:scale(1.05)}40%{transform:scale(1)}}
+
+h1{font-weight:300;font-size:clamp(40px,12vw,64px);line-height:1.02;margin:14px 0 12px;letter-spacing:-1.5px;color:#fff3ec}
+h1 em{font-style:italic;font-weight:500;color:var(--tomato2)}
+.sub{font-style:italic;font-weight:300;font-size:18px;line-height:1.6;max-width:300px;margin:0 0 26px;color:var(--blush);opacity:.9}
+.hand{font-family:var(--hand);font-size:22px;color:var(--tomato2)}
+.count{font-family:var(--hand);font-size:21px;margin-top:18px;color:var(--blush);opacity:.85;min-height:28px}
+
+.btn{font:300 17px var(--serif);font-style:italic;color:#fff3ec;background:linear-gradient(135deg,var(--tomato),#c9302c);
+  border:0;border-radius:40px;padding:15px 34px;cursor:pointer;box-shadow:0 10px 28px rgba(232,69,47,.4);transition:transform .2s,box-shadow .2s}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:none;border:1px solid rgba(246,201,192,.4);box-shadow:none;color:var(--blush)}
+:focus-visible{outline:2px solid var(--tomato2);outline-offset:4px}
+
+/* carta */
+.paper{background:var(--paper);color:var(--ink);width:min(100%,380px);padding:34px 28px 30px;border-radius:3px;position:relative;
+  box-shadow:0 30px 70px rgba(0,0,0,.45);transform:rotate(-1.2deg);text-align:left;
+  background-image:repeating-linear-gradient(transparent 0 33px,rgba(185,120,120,.18) 33px 34px)}
+.paper::before{content:"";position:absolute;left:18px;top:0;bottom:0;width:1px;background:rgba(232,69,47,.3)}
+.paper .to{font-family:var(--hand);font-size:30px;color:#b13a2a;margin:0 0 6px 8px;line-height:34px}
+.paper p{font-family:var(--hand);font-size:23px;line-height:34px;margin:0 0 0 8px;min-height:300px;white-space:pre-wrap}
+.paper .sig{font-family:var(--hand);font-size:30px;color:#b13a2a;text-align:right;margin-top:10px;opacity:0;transition:opacity 1s}
+.paper .sig.on{opacity:1}
+.stamp{position:absolute;right:-8px;top:-14px;width:54px;transform:rotate(12deg)}
+#s1 .btn{margin-top:30px;opacity:0;pointer-events:none;transition:opacity .8s}
+#s1 .btn.on{opacity:1;pointer-events:auto}
+
+/* razones */
+.deck{position:relative;width:min(100%,320px);height:300px;margin:18px 0 26px;perspective:900px}
+.rc{position:absolute;inset:0;border-radius:20px;padding:30px 24px;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:linear-gradient(160deg,#fff3ec,var(--blush));color:var(--ink);box-shadow:0 24px 50px rgba(0,0,0,.4);
+  transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .6s}
+.rc .tom{--s:46px;margin-bottom:16px}
+.rc h3{font-weight:500;font-style:italic;font-size:26px;margin:0 0 10px;color:#a8281f}
+.rc p{margin:0;font-size:17px;line-height:1.55;font-weight:300}
+.dots{display:flex;gap:8px;margin-bottom:22px}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(246,201,192,.3);transition:.3s}
+.dots i.on{background:var(--tomato2);transform:scale(1.4)}
+
+/* jardín */
+#s3{justify-content:flex-start;padding-top:12vh;touch-action:manipulation}
+#garden{position:absolute;inset:0;z-index:0}
+#s3 .top,#s3 .btn{position:relative;z-index:3}
+#s3 .btn{margin-top:20px;opacity:0;pointer-events:none;transition:opacity .8s}
+#s3 .btn.on{opacity:1;pointer-events:auto}
+.plant{position:absolute;transform:translate(-50%,-100%);pointer-events:none;z-index:1}
+.plant .tom{--s:54px;transform-origin:50% 100%;animation:grow .9s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes grow{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+.plant span{position:absolute;left:50%;top:-14px;transform:translateX(-50%);font-family:var(--hand);font-size:20px;white-space:nowrap;color:#fff3ec;
+  animation:rise 2.4s ease-out forwards}
+@keyframes rise{0%{opacity:0;transform:translate(-50%,6px)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-34px)}}
+
+/* final */
+#s4 .q{font-size:clamp(32px,9vw,46px);font-weight:300;line-height:1.12;margin:20px 0 34px;color:#fff3ec}
+#s4 .q em{font-style:italic;color:var(--tomato2)}
+.row{display:flex;gap:16px;align-items:center;justify-content:center;min-height:60px}
+#no{transition:left .25s,top .25s}
+.yes{font-size:20px;padding:17px 44px}
+#end{display:none}
+#end.on{display:block;animation:pop .9s cubic-bezier(.2,1.2,.4,1)}
+@keyframes pop{from{opacity:0;transform:scale(.8)}}
+#end p{font-size:19px;line-height:1.7;max-width:310px;margin:0 auto;font-weight:300}
+.hug{position:relative;width:260px;height:110px;margin:22px 0 8px}
+.hug .tom{position:absolute;top:8px;--s:92px}
+.hug .a{left:0}.hug .b{right:0}
+#sA{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+#hugB{touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;padding:18px 46px}
+#sB{justify-content:flex-start;padding-top:7vh;overflow-y:auto}
+.env{display:block;width:min(100%,330px);margin:0 auto 9px;text-align:left;font:300 17px var(--serif);font-style:italic;color:#fff3ec;background:rgba(246,201,192,.1);border:1px solid rgba(246,201,192,.3);border-radius:14px;padding:12px 18px;cursor:pointer;transition:.3s}
+.env.open{background:rgba(232,69,47,.18);border-color:var(--tomato2)}
+.env span{display:inline-block;width:26px;color:var(--tomato2)}
+#envMsg{width:min(100%,330px);margin:12px auto 0;min-height:104px;font-family:var(--hand);font-size:23px;line-height:1.3;color:#fff3ec;opacity:0}
+#envMsg.on{opacity:1;transition:opacity .6s}
+#sB .btn,#sP .btn{opacity:0;pointer-events:none;transition:opacity .8s;margin-top:12px}
+#sB .btn.on,#sP .btn.on{opacity:1;pointer-events:auto}
+#prom{list-style:none;padding:0;margin:22px 0 10px;text-align:left;width:min(100%,340px)}
+#prom li{font-size:19px;line-height:1.45;font-weight:300;margin-bottom:16px;padding-left:34px;position:relative;opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s;color:#fff3ec}
+#prom li::before{content:"♡";position:absolute;left:0;color:var(--tomato2)}
+#prom li.on{opacity:1;transform:none}
+.hug .mid{position:absolute;left:50%;top:26px;font-style:normal;font-size:42px;line-height:1;color:#fff3ec;transform:translateX(-50%) scale(0);opacity:0;z-index:2;text-shadow:0 0 22px var(--tomato2)}
+.scene:not(.on) *{animation-play-state:paused!important}
+#prog{position:fixed;top:max(14px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:6;pointer-events:none}
+#prog i{width:5px;height:5px;border-radius:50%;background:rgba(246,201,192,.22);transition:.4s}
+#prog i.d{background:rgba(246,201,192,.6)}
+#prog i.on{background:var(--tomato2);transform:scale(1.6)}
+#s0>*{animation:in 1.1s cubic-bezier(.2,.8,.2,1) backwards}
+#s0>:nth-child(n+2){animation-delay:.3s}#s0>:nth-child(n+4){animation-delay:.6s}#s0>:nth-child(n+5){animation-delay:.9s}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <radialGradient id="g" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#ff8a6b"/><stop offset=".55" stop-color="#e8452f"/><stop offset="1" stop-color="#a8201f"/></radialGradient>
+  <symbol id="t" viewBox="0 0 100 100">
+    <path class="body" d="M50 92C39 84 5 62 5 35 5 14 30 5 50 27 70 5 95 14 95 35 95 62 61 84 50 92Z"/>
+    <path d="M18 33C19 21 30 15 39 22" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+    <g fill="#86a75f"><ellipse cx="50" cy="22" rx="5" ry="14" transform="rotate(-70 50 24)"/><ellipse cx="50" cy="22" rx="5" ry="14" transform="rotate(70 50 24)"/><ellipse cx="50" cy="22" rx="5" ry="13" transform="rotate(-25 50 24)"/><ellipse cx="50" cy="22" rx="5" ry="13" transform="rotate(25 50 24)"/></g>
+    <path d="M50 24C50 14 53 8 58 4" fill="none" stroke="#6d8a4a" stroke-width="4" stroke-linecap="round"/>
+  </symbol></defs></svg>
+<div id="fx"></div>
+<div id="prog"></div>
+
+<!-- 1 · Intro -->
+<section class="scene on" id="s0">
+  <button class="hero" id="hero" aria-label="Toca el tomatito para empezar"><svg class="tom" style="--s:170px"><use href="#t"/></svg></button>
+  <div class="hand">de Israel para su tomatín</div>
+  <h1>Para ti,<br><em>Claudia</em></h1>
+  <p class="sub">Hay personas que hacen los días un poquito más bonitos.</p>
+  <button class="btn" data-go="1">Abrir mi detalle</button>
+  <div class="count" id="count"></div>
+</section>
+
+<!-- 2 · Carta -->
+<section class="scene" id="s1">
+  <div class="paper">
+    <svg class="stamp tom" viewBox="0 0 100 100"><use href="#t"/></svg>
+    <div class="to">Para Claudia, mi tomatín:</div>
+    <p id="typed"></p>
+    <div class="sig" id="sig">Te amo, Claudia. ♡<br>— Israel</div>
+  </div>
+  <button class="btn" id="next1" data-go="2">Hay más…</button>
+</section>
+
+<!-- 3 · Razones -->
+<section class="scene" id="s2">
+  <div class="hand">cosas que me encantan de ti</div>
+  <div class="deck" id="deck"></div>
+  <div class="dots" id="dots"></div>
+  <button class="btn" id="nextR">Siguiente</button>
+</section>
+
+<!-- Abrazo -->
+<section class="scene" id="sA">
+  <div class="hand">toca, toca, toca</div>
+  <h1 style="font-size:clamp(32px,9vw,44px)">Un abrazo<br><em>de los nuestros</em></h1>
+  <div class="hug" id="hug"><svg class="tom a"><use href="#t"/></svg><svg class="tom b"><use href="#t"/></svg><i class="mid" id="mid">♡</i></div>
+  <p class="sub" id="hugT" style="min-height:56px">Toca el botón varias veces, sin parar.</p>
+  <button class="btn" id="hugB">Abrazar</button>
+  <button class="btn" id="nextA" data-next style="display:none">Sigue, que hay más</button>
+</section>
+
+<!-- Sobres -->
+<section class="scene" id="sB">
+  <div class="hand">por si algún día los necesitas</div>
+  <h1 style="font-size:clamp(30px,9vw,42px);margin:8px 0 18px">Ábrelos<br><em>cuando…</em></h1>
+  <div id="envs"></div>
+  <div id="envMsg"></div>
+  <button class="btn" id="nextB" data-next>Seguir</button>
+</section>
+
+<!-- Promesas -->
+<section class="scene" id="sP">
+  <div class="hand">y para que quede por escrito</div>
+  <h1 style="font-size:clamp(32px,9vw,44px)">Lo que<br><em>te prometo</em></h1>
+  <ul id="prom"></ul>
+  <button class="btn" id="nextP" data-next>Plantar tomatitos</button>
+</section>
+
+<!-- 4 · Jardín -->
+<section class="scene" id="s3">
+  <div id="garden"></div>
+  <div class="top">
+    <h1 style="font-size:clamp(32px,9vw,44px)">Planta<br><em>un tomatito</em></h1>
+    <p class="sub" id="gh" style="margin-inline:auto">Toca la pantalla. Cada toque es un cariñito más para ti.</p>
+  </div>
+  <button class="btn" data-next>Una última cosa</button>
+</section>
+
+<!-- 5 · Final -->
+<section class="scene" id="s4">
+  <div id="ask">
+    <svg class="tom" style="--s:84px;animation:beat 2.6s infinite"><use href="#t"/></svg>
+    <div class="q">¿Me dejas seguir<br><em>haciéndote sonreír</em>?</div>
+    <div class="row" id="row">
+      <button class="btn yes" id="yes">Sí ♡</button>
+      <button class="btn ghost" id="no">No</button>
+    </div>
+  </div>
+  <div id="end">
+    <svg class="tom" style="--s:120px;animation:beat 2.2s infinite"><use href="#t"/></svg>
+    <h1 style="margin-top:18px">Te amo,<br><em>Claudia</em></h1>
+    <p>No hacía falta una razón. Solo quería hacerte algo bonito, porque me alegra haberte conocido y tenerte cerquita. Gracias por escucharme y por darme paz. ♡<br><br><span class="hand">— Israel</span><br><br><span class="hand" style="font-size:20px;opacity:.85">P.D. El próximo “casi” quizá ya no sea casi 🙈</span></p>
+  </div>
+</section>
+
+<script>
+(function(){
+  /* ✎ PERSONALIZA AQUÍ */
+  var START_DATE = "";            // ej. "2026-03-14" para mostrar “días contigo”; vacío = oculto
+  var LETTER = "Claudia, no hace falta un día especial para decirte que te amo. Aunque a veces te pasas de lenteja 😂\n\nEres de las pocas personas que de verdad me escuchan.\n\nY cuando me río contigo, siento paz.\n\nMe alegra haberte conocido y tenerte cerquita.";
+  var REASONS = [
+    ["Me escuchas","Eres de las pocas personas que de verdad me escuchan. Y eso no tiene precio."],
+    ["Tu risa","Cuando me río contigo, siento paz. Así de simple y así de grande."],
+    ["Tu lado lenteja","A veces te pasas de lenteja 😂, pero así te amo: con todo y lentejeo."],
+    ["Casi, casi…","Cada que nos abrazamos, a veces estamos a nada de darnos un beso. Y yo ahí, aguantándome JAJA"],
+    ["Esas miradas","De repente nos quedamos mirando, como esperando algo… y yo queriéndote robar un beso 🙈"],
+    ["Jugando, casi…","Hasta por andar jugando casi nos damos un beso. Y la verdad, me encanta ese casi JAJA"],
+    ["Tu compañía","Compartir mis días contigo es mi parte favorita."],
+    ["Tenerte cerquita","Aunque sea un ratito, todo se siente mejor contigo."],
+    ["Tú, tal cual","No cambiaría nada, Claudia. Me encantas así, y te amo así."]
+  ];
+  var WORDS = ["te amo","mi lentejita","sonríe","cerquita","qué bonita","mi paz","casi un beso","♡","Claudia"];
+  /* ───────────────── */
+
+  var $=function(i){return document.getElementById(i)};
+  var scenes=[].slice.call(document.querySelectorAll('.scene')), cur=0, typedOnce=false, gardenOnce=0;
+  function tom(s){return '<svg class="tom" style="--s:'+s+'px"><use href="#t"/></svg>'}
+  var prog=$('prog');scenes.forEach(function(){prog.appendChild(document.createElement('i'))});
+  function mark(){[].forEach.call(prog.children,function(d,i){d.className=i===cur?'on':i<cur?'d':''})}mark();
+  var AC;
+  function ping(n){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();var o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime;o.type='sine';o.frequency.value=[523,587,659,784,880,1047][n%6];g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.1,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.7);o.connect(g);g.connect(AC.destination);o.start();o.stop(t+.75)}catch(e){}}
+  function go(n){
+    scenes[cur].classList.remove('on'); cur=n; scenes[n].classList.add('on'); mark();
+    if(n===1&&!typedOnce){typedOnce=true;setTimeout(typeLetter,700)}
+    if(scenes[n].id==='sP')promises();
+    if(n===3){last=performance.now();requestAnimationFrame(hugFrame)}
+  }
+  document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(+b.dataset.go)})});
+  $('hero').addEventListener('click',function(){burst(14);});
+  document.querySelectorAll('[data-next]').forEach(function(b){b.addEventListener('click',function(){go(cur+1)})});
+
+  /* días contigo */
+  if(START_DATE){var d=Math.floor((Date.now()-new Date(START_DATE+"T00:00:00"))/864e5);if(d>=0)$('count').textContent=d+" días desde que te conocí ♡"}
+
+  /* partículas suaves de fondo */
+  var fx=$('fx'),sym=['♡','✿','·'];
+  function bit(html,dur){
+    var e=document.createElement('span');e.className='bit';e.innerHTML=html;
+    e.style.left=Math.random()*100+'vw';e.style.setProperty('--dx',(Math.random()*80-40)+'px');
+    e.style.fontSize=(12+Math.random()*12)+'px';e.style.animationDuration=dur+'s';
+    fx.appendChild(e);setTimeout(function(){e.remove()},dur*1000);
+  }
+  setInterval(function(){if(!document.hidden&&fx.children.length<14)bit(sym[Math.floor(Math.random()*3)],9+Math.random()*8)},1800);
+  function burst(n){for(var i=0;i<n;i++)setTimeout(function(){bit(Math.random()<.5?tom(22+Math.random()*16):'♡',3.5+Math.random()*3)},i*70)}
+
+  /* carta escrita a mano */
+  function typeLetter(){
+    var el=$('typed'),i=0;
+    (function step(){
+      el.textContent=LETTER.slice(0,++i);
+      if(i<LETTER.length){setTimeout(step,/[.\n,]/.test(LETTER[i-1])?220:38)}
+      else{$('sig').classList.add('on');setTimeout(function(){$('next1').classList.add('on')},900)}
+    })();
+  }
+  $('next1').classList.remove('on');
+
+  /* razones */
+  var deck=$('deck'),dots=$('dots'),ri=0;
+  REASONS.forEach(function(r,i){
+    var c=document.createElement('div');c.className='rc';
+    c.innerHTML=tom(46)+'<h3>'+r[0]+'</h3><p>'+r[1]+'</p>';deck.appendChild(c);
+    dots.appendChild(document.createElement('i'));
+  });
+  function layout(){
+    [].forEach.call(deck.children,function(c,i){
+      var k=i-ri;
+      if(k<0){c.style.transform='translateX(-120%) rotate(-14deg)';c.style.opacity=0}
+      else{c.style.transform='translateY('+Math.min(k,3)*12+'px) scale('+(1-Math.min(k,3)*.05)+') rotate('+(k?(k%2?3:-3):0)+'deg)';c.style.opacity=k>3?0:1;c.style.zIndex=99-k}
+    });
+    [].forEach.call(dots.children,function(d,i){d.className=i===ri?'on':''});
+    $('nextR').textContent=ri===REASONS.length-1?'Seguir':'Siguiente';
+  }
+  $('nextR').addEventListener('click',function(){ri<REASONS.length-1?(ri++,layout(),ping(ri)):go(3)});
+  deck.addEventListener('click',function(){$('nextR').click()});
+  layout();
+
+  /* jardín */
+  $('s3').addEventListener('pointerdown',function(e){
+    if(e.target.closest('button'))return;
+    var p=document.createElement('div');p.className='plant';
+    p.style.left=e.clientX+'px';p.style.top=e.clientY+'px';
+    p.innerHTML=tom(40+Math.random()*30)+'<span>'+WORDS[gardenOnce%WORDS.length]+'</span>';
+    $('garden').appendChild(p);ping(gardenOnce);if($('garden').children.length>30)$('garden').firstChild.remove();gardenOnce++;
+    if(gardenOnce===1)$('gh').textContent='Sigue, sigue…';
+    if(gardenOnce===6){$('gh').textContent='Mira cuánto ha crecido. Así de bonito me haces sentir.';document.querySelector('#s3 .btn').classList.add('on')}
+  });
+
+  /* abrazo: casi beso */
+  var hb=$('hugB'),ha=document.querySelector('#hug .a'),hc=document.querySelector('#hug .b'),hp=0,holding=false,hdone=false,last=0,mid=$('mid');
+  function hugFrame(t){
+    var dt=Math.min(t-last,50);last=t;
+    if(!hdone){
+      hp=Math.max(0,Math.min(1,hp+(holding?dt/2400:-dt/3000)));
+      var x=hp*38,tx=$('hugT');
+      ha.style.transform='translateX('+x+'px)';
+      hc.style.transform='scaleX(-1) translateX('+x+'px)';
+      mid.style.transform='translateX(-50%) scale('+(hp*1.3)+')';mid.style.opacity=hp;
+      if(hp>=1){hdone=true;tx.textContent='Casi… 🙈 Otra vez me quedé con las ganas, JAJA.';burst(18);$('nextA').style.display='';hb.style.display='none'}
+      else if(hp>.6)tx.textContent='Más cerquita…';
+      else if(hp>.25)tx.textContent='Sigue tocando…';
+      else tx.textContent='Toca el botón varias veces, sin parar.';
+    }
+    if(!hdone&&cur===3)requestAnimationFrame(hugFrame);
+  }
+  function hold(){holding=true}
+  function drop(){holding=false}
+  hb.addEventListener('click',function(){hp=Math.min(1,hp+.14);ping(Math.round(hp*5))});
+  hb.addEventListener('touchstart',hold,{passive:false});
+  hb.addEventListener('mousedown',hold);
+  ['touchend','touchcancel','mouseup','mouseleave'].forEach(function(ev){hb.addEventListener(ev,drop)});
+  window.addEventListener('touchend',drop);window.addEventListener('mouseup',drop);
+  hb.addEventListener('contextmenu',function(e){e.preventDefault()});
+  hb.addEventListener('selectstart',function(e){e.preventDefault()});
+
+  /* sobres */
+  var ENV=[
+    ['te sientas triste','Respira. Aquí estoy, aunque sea con un mensaje. No tienes que poder con todo sola, y me tienes cerquita, siempre. ♡'],
+    ['quieras reírte','Acuérdate de cuando te pasas de lenteja 😂 y de cómo nos reímos después. Contigo hasta lo más tonto se vuelve lo mejor del día.'],
+    ['me extrañes','Yo también te extraño. Estoy contando los abrazos que faltan y los casi que algún día dejarán de serlo 🙈'],
+    ['necesites una razón para sonreír','Mira: alguien se pasó un día entero haciéndote esta página. Esa es tu razón 🍅']
+  ];
+  var envs=$('envs'),envMsg=$('envMsg'),opened=0;
+  ENV.forEach(function(e){
+    var b=document.createElement('button');b.className='env';
+    b.innerHTML='<span>✉</span>Cuando '+e[0];
+    b.addEventListener('click',function(){
+      envMsg.classList.remove('on');void envMsg.offsetWidth;ping(opened+2);envMsg.textContent=e[1];envMsg.classList.add('on');
+      if(!b.dataset.o){b.dataset.o=1;b.classList.add('open');b.firstChild.textContent='♡';opened++;if(opened===ENV.length)$('nextB').classList.add('on')}
+    });
+    envs.appendChild(b);
+  });
+
+  /* promesas */
+  var PR=['Escucharte, como tú me escuchas a mí.','Reírme contigo, aunque te pases de lenteja.','Seguir intentando robarte ese beso JAJA.','Hacerte sonreír, aunque sea por un ratito.','Quererte tal cual, Claudia.'],pdone=false;
+  PR.forEach(function(t){var li=document.createElement('li');li.textContent=t;$('prom').appendChild(li)});
+  function promises(){
+    if(pdone)return;pdone=true;
+    [].forEach.call($('prom').children,function(li,i){setTimeout(function(){li.classList.add('on')},800+i*1500)});
+    setTimeout(function(){$('nextP').classList.add('on')},800+PR.length*1500);
+  }
+
+  /* final */
+  var no=$('no'),tries=0,msgs=['No','¿Segura?','Piénsalo','Ándale…','Mejor di que sí'];
+  function dodge(e){
+    e.preventDefault();tries++;
+    no.textContent=msgs[Math.min(tries,msgs.length-1)];
+    no.style.position='fixed';
+    no.style.left=(10+Math.random()*(innerWidth-130))+'px';
+    no.style.top=(10+Math.random()*(innerHeight-70))+'px';
+    $('yes').style.transform='scale('+Math.min(1+tries*.12,1.7)+')';
+  }
+  no.addEventListener('pointerenter',dodge);no.addEventListener('touchstart',dodge,{passive:false});no.addEventListener('click',dodge);
+  $('yes').addEventListener('click',function(){
+    $('ask').style.display='none';$('end').classList.add('on');[0,2,4].forEach(function(k,i){setTimeout(function(){ping(k)},i*180)});
+    burst(36);setTimeout(function(){burst(24)},1500);
+  });
+})();
+</script>
+</body>
+</html>
